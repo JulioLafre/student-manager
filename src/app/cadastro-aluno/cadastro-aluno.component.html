@@ -1,1 +1,60 @@
-<p>cadastro-aluno works!</p>
+<div class="container mt-4">
+    <h2>{{ isEdit ? 'Editar Aluno' : 'Cadastrar Novo Aluno' }}</h2>
+    
+    <form [formGroup]="alunoForm" (ngSubmit)="onSubmit()">
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="nome" class="form-label">Nome</label>
+          <input type="text" class="form-control" id="nome" formControlName="nome"
+                 [class.is-invalid]="alunoForm.get('nome')?.invalid && (alunoForm.get('nome')?.touched || alunoForm.get('nome')?.dirty)">
+          @if (alunoForm.get('nome')?.invalid && (alunoForm.get('nome')?.touched || alunoForm.get('nome')?.dirty)) {
+            <div class="invalid-feedback">
+              Por favor, informe o nome do aluno.
+            </div>
+          }
+        </div>
+        <div class="col-md-6">
+          <label for="idade" class="form-label">Idade</label>
+          <input type="number" class="form-control" id="idade" formControlName="idade"
+                 [class.is-invalid]="alunoForm.get('idade')?.invalid && (alunoForm.get('idade')?.touched || alunoForm.get('idade')?.dirty)">
+          @if (alunoForm.get('idade')?.invalid && (alunoForm.get('idade')?.touched || alunoForm.get('idade')?.dirty)) {
+            <div class="invalid-feedback">
+              Por favor, informe uma idade válida (maior que 0).
+            </div>
+          }
+        </div>
+      </div>
+      
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="curso" class="form-label">Curso</label>
+          <input type="text" class="form-control" id="curso" formControlName="curso"
+                 [class.is-invalid]="alunoForm.get('curso')?.invalid && (alunoForm.get('curso')?.touched || alunoForm.get('curso')?.dirty)">
+          @if (alunoForm.get('curso')?.invalid && (alunoForm.get('curso')?.touched || alunoForm.get('curso')?.dirty)) {
+            <div class="invalid-feedback">
+              Por favor, informe o curso do aluno.
+            </div>
+          }
+        </div>
+        <div class="col-md-6">
+          <label for="periodo" class="form-label">Período</label>
+          <input type="text" class="form-control" id="periodo" formControlName="periodo"
+                 [class.is-invalid]="alunoForm.get('periodo')?.invalid && (alunoForm.get('periodo')?.touched || alunoForm.get('periodo')?.dirty)">
+          @if (alunoForm.get('periodo')?.invalid && (alunoForm.get('periodo')?.touched || alunoForm.get('periodo')?.dirty)) {
+            <div class="invalid-feedback">
+              Por favor, informe o período do aluno.
+            </div>
+          }
+        </div>
+      </div>
+      
+      <div class="d-flex justify-content-end gap-2">
+        <button type="button" class="btn btn-secondary" (click)="onCancel()">
+          Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="alunoForm.invalid">
+          {{ isEdit ? 'Atualizar' : 'Salvar' }}
+        </button>
+      </div>
+    </form>
+</div>

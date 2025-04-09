@@ -1,29 +1,66 @@
-<div class="alunos-container">
+<div class="container mt-4">
     <h2>Lista de Alunos</h2>
-
-    <table class="alunos-table">
+    
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Pesquisar por nome..." 
+                 [(ngModel)]="searchTerm" (input)="search()">
+          <button class="btn btn-outline-secondary" type="button" (click)="search()">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </div>
+      <div class="col-md-6 text-end">
+        <button class="btn btn-primary" (click)="novoAluno()">
+          <i class="bi bi-plus-circle"></i> Novo Aluno
+        </button>
+      </div>
+    </div>
+  
+    <div class="mb-3">
+      <button class="btn btn-outline-secondary me-2" (click)="sort('nome')">
+        Ordenar por Nome
+      </button>
+      <button class="btn btn-outline-secondary" (click)="sort('idade')">
+        Ordenar por Idade
+      </button>
+    </div>
+  
+    <div class="table-responsive">
+      <table class="table table-striped table-hover">
         <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Idade</th>
-                <th>Período</th>
-                <th>Curso</th>
-            </tr>
+          <tr>
+            <th>Nome</th>
+            <th>Idade</th>
+            <th>Curso</th>
+            <th>Período</th>
+            <th>Ações</th>
+          </tr>
         </thead>
         <tbody>
-        @for (aluno of alunos.alunos; track aluno.id) {
-        <tr>
-            <td>{{ aluno.id }}</td>
-            <td>{{ aluno.nome }}</td>
-            <td>{{ aluno.idade }}</td>
-            <td>{{ aluno.periodo }}</td>
-            <td>{{ aluno.curso }}</td>
-            <td>
-                <button (click)="excluirAlunos(aluno.id)">Excluir</button>
-            </td>
-        </tr>
-        }
+          @for (aluno of alunos; track aluno.id) {
+            <tr>
+              <td>{{ aluno.nome }}</td>
+              <td>{{ aluno.idade }}</td>
+              <td>{{ aluno.curso }}</td>
+              <td>{{ aluno.periodo }}</td>
+              <td>
+                <button class="btn btn-sm btn-warning me-2" (click)="editAluno(aluno.id!)">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn btn-sm btn-danger" (click)="deleteAluno(aluno.id!)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            </tr>
+          }
+          @if (alunos.length === 0) {
+            <tr>
+              <td colspan="5" class="text-center">Nenhum aluno cadastrado</td>
+            </tr>
+          }
         </tbody>
-    </table>
+      </table>
+    </div>
 </div>
